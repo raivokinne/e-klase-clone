@@ -8,7 +8,7 @@
         <p class="text-center text-xs sm:text-lg w-[500px] text-gray-700">
             E-gay is the best e-klases alternative for schools.
         </p>
-        <a href="/register">
+        <a href="/login">
             <button class="mt-8 px-6 py-3 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 transition duration-300">
                 Get Started
             </button>

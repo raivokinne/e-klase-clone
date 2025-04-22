@@ -1,8 +1,7 @@
 <?php view('components/head', ['title' => 'Login']) ?>
 <div class="font-[sans-serif] text-[#333]">
-    <div class="flex items-center justify-center min-h-screen px-4 py-6 fle-col">
-        <div class="grid items-center w-full max-w-6xl gap-10 md:grid-cols-2">
-
+    <div class="flex items-center justify-center min-h-screen px-4 py-6">
+        <div class="grid w-[400px] gap-10">
             <form class="w-full max-w-md space-y-6 md:ml-auto max-md:mx-auto" action="/login" method="post">
                 <h3 class="mb-8 text-3xl font-extrabold max-md:text-center">
                     Sign in
@@ -41,13 +40,7 @@
                         Log in
                     </button>
                 </div>
-                <p class="mt-10 text-sm">Don't have an account <a href="/register" class="ml-1 font-semibold text-blue-600 hover:underline">Register here</a></p>
             </form>
-            <div class="max-md:text-center">
-                <div class="mt-10">
-                    <img src="/assets/login-bg.jpg" alt="" class="w-full">
-                </div>
-            </div>
         </div>
     </div>
 </div>
