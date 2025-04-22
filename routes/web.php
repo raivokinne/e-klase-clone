@@ -10,3 +10,5 @@ $router->get('/profile', 'profile/edit.php')->only('auth');
 $router->put('/profile/{id}/update', 'profile/update.php')->only('auth');
 $router->delete('/profile/{id}/delete', 'profile/delete.php')->only('auth');
 $router->put('/profile/{id}/password', 'profile/password.php')->only('auth');
+
+$router->get('/grades', 'pages/grades.php')->only('auth');
