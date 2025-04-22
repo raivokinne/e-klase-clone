@@ -12,8 +12,8 @@
                     <img src="/assets/profile-icon.png" alt="profile icon" class="w-6 h-6 bg-white rounded-full">
                 </a>
             <?php else : ?>
-                <a href="/register">
-                    <button class="px-3 py-1.5 text-white bg-black border border-gray-500 rounded-lg hover:opacity-75 transition-all duration-300">Register</button>
+                <a href="/login">
+                    <button class="px-3 py-1.5 text-white bg-black border border-gray-500 rounded-lg hover:opacity-75 transition-all duration-300">Login</button>
                 </a>
             <?php endif ?>
         </div>

@@ -2,11 +2,11 @@
 
 namespace Core\Middleware;
 
-class Auth
+class Student
 {
     public function handle()
     {
-        if (!$_SESSION['user']) {
+        if (!$_SESSION['user'] || $_SESSION['user']['role'] !== 'student') {
             redirect('/');
         }
     }
