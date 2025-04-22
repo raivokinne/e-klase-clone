@@ -1,6 +1,6 @@
 <nav class="w-full h-[50px] bg-zinc-900 fixed top-0 z-50">
     <div class="relative flex items-center justify-between w-full h-16 px-2 lg:px-10 ">
-        <div class="relative px-4 text-lg font-bold text-white uppercase">E-gay<span class="absolute top-0 right-0 w-3 h-3 bg-blue-500 rounded-full">
+        <div class="relative px-4 text-lg font-bold text-white uppercase">ClassNet<span class="absolute top-0 right-0 w-3 h-3 bg-blue-500 rounded-full">
             </span>
         </div>
 

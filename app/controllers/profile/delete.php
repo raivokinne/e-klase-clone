@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Booking;
 use App\Models\User;
 use Core\Session;
 
@@ -23,6 +22,5 @@ if (!empty($errors)) {
     redirect('/profile');
 }
 
-Booking::deleteByUser($user['id']);
 User::delete($user['id']);
 redirect('/logout');
