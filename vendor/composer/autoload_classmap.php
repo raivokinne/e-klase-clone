@@ -6,10 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Models\\Booking' => $baseDir . '/app/Models/Booking.php',
-    'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
-    'App\\Models\\Review' => $baseDir . '/app/Models/Review.php',
-    'App\\Models\\Room' => $baseDir . '/app/Models/Room.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',

@@ -27,43 +27,6 @@
                 </h2>
             </div>
 
-            <div class="mt-10">
-                <h3 class="text-xl font-semibold">Bookings History</h3>
-                <?php if (count($orders) > 0) : ?>
-                    <table class="min-w-full bg-white">
-                        <thead>
-                            <tr>
-                                <th class="py-2">Order ID</th>
-                                <th class="py-2">Order Date</th>
-                                <th class="py-2">Room Name</th>
-                                <th class="py-2">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($orders as $order) : ?>
-                                <tr class="cursor-pointer hover:bg-gray-100" onclick="window.location.href='/bookings/<?php echo $order['id'] ?>/show'">
-                                    <td class="py-2 text-center">
-                                        <?php echo $order['id'] ?>
-                                    </td>
-                                    <td class="py-2 text-center">
-                                        <?php echo $order['created_at'] ?>
-                                    </td>
-                                    <?php foreach ($rooms[$order['room_id']] as $room) : ?>
-                                        <td class="py-2 text-center">
-                                            <?php echo $room['name'] ?>
-                                        </td>
-                                    <?php endforeach ?>
-                                    <td class="py-2 text-center">
-                                        <?php echo $order['status'] ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                <?php else : ?>
-                    <p class="text-gray-700">No orders found.</p>
-                <?php endif ?>
-            </div>
         </div>
     </div>
 
