@@ -1,8 +1,6 @@
 <?php
 
 use App\Models\User;
-use App\Models\Booking;
-use App\Models\Room;
 use Core\Session;
 
 $user = User::where('id', '=', $_SESSION['user']['id'])->get();

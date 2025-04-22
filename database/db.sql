@@ -4,6 +4,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password TEXT NOT NULL,
     role ENUM('admin', 'student', 'teacher') NOT NULL DEFAULT 'student',
+    avatar VARCHAR,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
