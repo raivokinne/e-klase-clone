@@ -1,13 +1,13 @@
 <?php
 
 namespace Core;
-
 use Database\Database;
-
+use PDO;
 class Model extends Database
 {
     protected static string $table = '';
     protected static $statement = null;
+    
     /**
      * @return Model
      */
@@ -18,6 +18,7 @@ class Model extends Database
         self::$statement->execute();
         return new static;
     }
+    
     /**
      * @return Model
      */
@@ -28,6 +29,7 @@ class Model extends Database
         self::$statement->execute(['id' => $id]);
         return new static;
     }
+    
     /**
      * @param array<int,mixed> $data
      */
@@ -46,6 +48,7 @@ class Model extends Database
         $query->execute($data);
         return new static;
     }
+    
     /**
      * @return Model
      * @param array<int,mixed> $data
@@ -62,6 +65,7 @@ class Model extends Database
         $query->execute($data);
         return new static;
     }
+    
     /**
      * @return Model
      */
@@ -72,6 +76,7 @@ class Model extends Database
         self::$statement->execute(['id' => $id]);
         return new static;
     }
+    
     /**
      * @return Model
      */
@@ -82,33 +87,30 @@ class Model extends Database
         self::$statement->execute(['value' => $value]);
         return new static;
     }
-
+    
     public static function get()
     {
         return self::$statement->fetch();
     }
-
+    
     public static function getAll()
     {
         return self::$statement->fetchAll();
     }
-
+    
     public static function first()
     {
         return self::$statement->fetchColumn();
     }
-
-    /**
-     * @return Model
-     */
-    public static function join(string $table, string $key, string $value): Model
+    
+    public static function join(string $table, string $key, string $value)
     {
         $sql = "SELECT * FROM " . static::$table . " INNER JOIN " . $table . " ON " . static::$table . "." . $key . " = " . $table . "." . $value;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
         return new static;
     }
-
+    
     public static function groupBy(string $key)
     {
         $sql = "SELECT * FROM " . static::$table . " GROUP BY " . $key;
@@ -116,26 +118,25 @@ class Model extends Database
         self::$statement->execute();
         return new static;
     }
-
+    
     public static function orderBy(string $key, string $order = 'ASC')
     {
-        $sql = static::$table . " ORDER BY " . $key . " " . $order;
+        $sql = "SELECT * FROM " . static::$table . " ORDER BY " . $key . " " . $order;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
         return new static;
     }
-
+    
     public static function count()
     {
         return self::$statement->rowCount();
     }
-
+    
     public static function execute($query_string, $params)
     {
-
         $query = self::$connection->prepare($query_string);
-
         $query->execute($params);
+        self::$statement = $query; 
         return new static;
     }
 }
