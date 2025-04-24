@@ -96,7 +96,7 @@
         const toggleBtn = document.getElementById('toggleSidebar');
         const collapseIcon = document.getElementById('collapseIcon');
         const expandIcon = document.getElementById('expandIcon');
-        const mainContent = document.querySelector('section');
+        const mainContent = document.querySelector('.min-h-screen');
         const sidebarTexts = document.querySelectorAll('.sidebar-text');
         
         function toggleSidebar() {
