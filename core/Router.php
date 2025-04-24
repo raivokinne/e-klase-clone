@@ -75,10 +75,9 @@ class Router
      * @return Router
      * @param mixed $key
      */
-    public function only($key): Router
+    public function only(...$keys): Router
     {
-        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
-
+        $this->routes[array_key_last($this->routes)]['middleware'] = $keys;
         return $this;
     }
     /**

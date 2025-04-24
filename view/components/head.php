@@ -20,4 +20,3 @@
 </head>
 
 <body class="font-poppins">
-    <?php view('components/navbar') ?>

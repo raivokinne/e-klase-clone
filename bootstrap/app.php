@@ -1,7 +1,6 @@
 <?php
 
-session_start();
-const APP_URL = 'http://localhost:8000';
+const APP_URL = 'http://localhost:9000';
 const BASE_PATH = __DIR__ . '/../';
 require __DIR__ . '/../vendor/autoload.php';
 require BASE_PATH . 'core/functions.php';

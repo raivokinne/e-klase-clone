@@ -1,66 +1,64 @@
 <?php view('components/head', ['title' => 'Profile']) ?>
-<section class="grid grid-cols-2 px-4 py-6 bg-gray-100">
-    <div class="w-full h-[500px] flex flex-col items-start justify-center max-w-6xl">
-        <header class="px-6 mx-auto ml-20 max-w-7xl lg:px-8 mt-36">
-            <h2 class="text-3xl font-semibold text-gray-800">Profile</h2>
-        </header>
+<?php view('components/side-nav') ?>
 
-        <div class="px-6 mx-auto mt-10 max-w-7xl lg:px-8">
-            <form id="imageUploadForm" method="post" action="/profile/<?php echo $_SESSION["user"]["id"] ?>/upload" enctype="multipart/form-data">
-                <div class="relative w-64 h-64 mx-auto">
-                    <img id="profilePreview" class="object-cover w-full h-full border-4 border-gray-200 rounded-full" src=<?= $_SESSION["user"]["avatar"] ? $_SESSION["user"]["avatar"] : "https://cdn-icons-png.flaticon.com/512/149/149071.png"?> alt="Profile Image" />
-                    <div class="absolute inset-0 flex flex-col items-center justify-center transition-opacity bg-black bg-opacity-50 rounded-full opacity-0 hover:opacity-100">
-                        <h1 class="mb-2 text-sm font-bold text-white">Change Image</h1>
-                        <input type="file" id="profileImage" name="profileImage" accept="image/*" class="px-3 py-1 text-sm text-white bg-gray-800 rounded cursor-pointer" />
-                    </div>
-                </div>
+<div class="min-h-screen bg-gray-100 <?php echo (isset($_SESSION['user']) && in_array($_SESSION['user']['role'], ['admin','teacher'])) ? 'pl-[250px]' : ''; ?> transition-all duration-300">
+  <section class="flex items-center justify-center py-12">
+    <div class="w-full max-w-4xl bg-white rounded-2xl overflow-hidden">
+      <div class="md:flex">
+        <div class="w-full md:w-1/2 bg-gradient-to-br bg-black p-8 flex flex-col items-center text-white">
+          <div class="relative">
+            <img id="profilePreview" class="w-32 h-32 rounded-full border-4 border-white object-cover" src="<?= 
+              $_SESSION['user']['avatar'] 
+                ? $_SESSION['user']['avatar'] 
+                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png' 
+            ?>" alt="Profile Image">
+            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 rounded-full transition-opacity">
+              <label for="profileImage" class="cursor-pointer flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm">Change</span>
+              </label>
+              <input type="file" id="profileImage" name="profileImage" accept="image/*" class="hidden" form="imageUploadForm">
+            </div>
+          </div>
 
-                <div class="mt-6 text-center">
-                    <button type="submit" class="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
-                        Save Image
-                    </button>
-                </div>
-            </form>
+          <h2 class="mt-6 text-2xl font-bold"><?php echo htmlspecialchars(
+            $_SESSION['user']['name'], ENT_QUOTES
+          ); ?></h2>
+          <p class="mt-2 text-md opacity-75"><?php echo htmlspecialchars(
+            $_SESSION['user']['email'], ENT_QUOTES
+          ); ?></p>
+
+          <form id="imageUploadForm" method="post" action="/profile/<?= $id ?>/upload" enctype="multipart/form-data" class="mt-6 w-full">
+            <button type="submit" class="w-full bg-white text-blue-600 font-semibold py-2 rounded-lg hover:bg-gray-100 transition">Save Image</button>
+          </form>
+
+          <a href="/logout" class="mt-4 w-full">
+            <button class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition">Logout</button>
+          </a>
         </div>
-        <div class="text-left">
-            <h2 class="text-sm font-medium text-gray-900">
-                <span class="text-gray-700">
-                    <?php echo $_SESSION['user']['name'] ?>
-                </span>
-            </h2>
-            <h2 class="mt-4 text-sm font-medium text-gray-900">
-                <span class="text-gray-700">
-                    <?php echo $_SESSION['user']['email'] ?>
-                </span>
-            </h2>
+
+        <div class="w-full md:w-1/2 p-8">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">Account Details</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-gray-600 text-sm">Name</label>
+              <input readonly class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-gray-50" value="<?php echo htmlspecialchars(
+                $_SESSION['user']['name'], ENT_QUOTES
+              ); ?>">
+            </div>
+            <div>
+              <label class="block text-gray-600 text-sm">Email</label>
+              <input readonly class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-gray-50" value="<?php echo htmlspecialchars(
+                $_SESSION['user']['email'], ENT_QUOTES
+              ); ?>">
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </section>
+</div>
 
-    <div class="py-12 mt-20">
-        <div class="mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
-            <?php if ($_SESSION["user"]["role"] === "admin") { ?>
-                <div class="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-                    <div class="max-w-xl">
-                        <?php view('profile/partials/update-profile-information-form') ?>
-                    </div>
-                </div>
-
-                <div class="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-                    <div class="max-w-xl">
-                        <?php view('profile/partials/update-password-form') ?>
-                    </div>
-                </div>
-
-                <div class="p-4 bg-white shadow sm:p-8 sm:rounded-lg">
-                    <div class="max-w-xl">
-                        <?php view('profile/partials/delete-user-form') ?>
-                    </div>
-                </div>
-            <?php } ?>
-            <a href="/logout" class="flex items-center justify-end w-full">
-                <button class="w-[400px] shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-gray-700 hover:bg-gray-600 focus:outline-none mt-10">Logout</button>
-            </a>
-        </div>
-    </div>
-</section>
 <?php view('components/footer') ?>
