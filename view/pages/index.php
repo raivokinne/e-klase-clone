@@ -1,4 +1,4 @@
-<?php view('components/head', ['title' => 'Home']) ?>
+<?php view('components/head', ['title' => 'Welcome']) ?>
 
 <section class="grid place-items-center min-h-screen w-full">
     <article class="max-w-7xl p-8 flex flex-col justify-center items-center">

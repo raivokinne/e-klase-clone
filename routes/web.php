@@ -13,3 +13,4 @@ $router->put('/profile/{id}/password', 'profile/password.php')->only('auth');
 $router->post('/profile/{id}/upload', 'profile/upload.php')->only('auth');
 
 $router->get('/grades', 'grades/index.php')->only('auth');
+$router->get('/home', 'home/index.php')->only('auth');
