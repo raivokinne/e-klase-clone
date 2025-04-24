@@ -2,16 +2,6 @@
 
 namespace Core\Middleware;
 
-
-class Guest
-{
-    public function handle()
-    {
-        if (isset($_SESSION['user'])) {
-            redirect('/home');
-        }
-    }
-}
 class Middleware
 {
     public const MAP = [
@@ -19,24 +9,42 @@ class Middleware
         'student' => Student::class,
         'auth' => Auth::class,
         'admin' => Admin::class,
-        'guest' => Guest::class
     ];
     /**
      * @return void
      * @param mixed $key
      */
-    public static function resolve($key): void
+    public static function resolve($keys): void
     {
-        if (!$key) {
+        if (!$keys) {
             return;
         }
 
-        $middleware = static::MAP[$key] ?? false;
-
-        if (!$middleware) {
-            throw new \Exception("No matching middleware found for key '{$key}'.");
+        if (is_string($keys)) {
+            $middleware = static::MAP[$keys] ?? false;
+            if (!$middleware) {
+                throw new \Exception("No matching middleware found for key '{$keys}'.");
+            }
+            (new $middleware)->handle();
+            return;
         }
 
-        (new $middleware)->handle();
+        foreach ($keys as $key) {
+            $middleware = static::MAP[$key] ?? false;
+            if (!$middleware) {
+                throw new \Exception("No matching middleware found for key '{$key}'.");
+            }
+
+            $instance = new $middleware;
+
+            try {
+                $instance->handle();
+                return;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        redirect('/');
     }
 }

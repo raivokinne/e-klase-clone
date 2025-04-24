@@ -2,14 +2,12 @@
 
 namespace Core\Middleware;
 
-use Core\Session;
-
 class Admin
 {
     public function handle()
     {
-        if (!$_SESSION['user'] || $_SESSION['user']['role'] !== 'admin') {
-            redirect('/');
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+            throw new \Exception("User is not an admin");
         }
     }
 }
