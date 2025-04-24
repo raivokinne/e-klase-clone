@@ -32,3 +32,28 @@ VALUES (
     '$2a$12$FT0jEYdY0olzMfAnPHp1uufDDtfymblPstv5acUbCZ3e6EAGpCJvK', -- hash for 'StudentPass123'
     'student'
 );
+
+CREATE TABLE subjects (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE students (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    class VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE grades (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    student_id INT NOT NULL,
+    subject_id INT NOT NULL,
+    grade DECIMAL(5, 2) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (subject_id) REFERENCES subjects(id)
+);
