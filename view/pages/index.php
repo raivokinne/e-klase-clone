@@ -2,7 +2,7 @@
 <?php view('components/side-nav') ?>
 
 <div class="overflow-x-hidden w-full">
-    <section class="grid place-items-center min-h-screen w-full transition-all duration-300 <?php echo (isset($_SESSION["user"]) && ($_SESSION["user"]["role"] === "admin" || $_SESSION["user"]["role"] === "teacher")) ? 'ml-[250px]' : ''; ?>">
+    <section class="grid place-items-center min-h-screen w-full transition-all duration-300">
         <article class="max-w-7xl p-8 flex flex-col justify-center items-center">
             <h1 class="text-6xl sm:text-6xl font-extrabold text-center mb-6 font-libre_baskerville_regular">
                 Home
