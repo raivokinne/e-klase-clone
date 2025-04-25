@@ -108,11 +108,6 @@
                     text.classList.add('hidden');
                 });
                 
-                if (mainContent) {
-                    mainContent.classList.remove('ml-[250px]');
-                    mainContent.classList.add('ml-[70px]');
-                }
-                
                 collapseIcon.classList.add('hidden');
                 expandIcon.classList.remove('hidden');
             } else {
@@ -122,11 +117,6 @@
                 sidebarTexts.forEach(text => {
                     text.classList.remove('hidden');
                 });
-                
-                if (mainContent) {
-                    mainContent.classList.remove('ml-[70px]');
-                    mainContent.classList.add('ml-[250px]');
-                }
                 
                 collapseIcon.classList.remove('hidden');
                 expandIcon.classList.add('hidden');

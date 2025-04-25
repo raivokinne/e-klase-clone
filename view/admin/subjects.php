@@ -4,100 +4,94 @@ echo '<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outl
 view('components/side-nav');
 ?>
 
-<div class="min-h-screen bg-gray-100 <?php echo (isset($_SESSION['user']) && in_array($_SESSION['user']['role'], ['admin','teacher'])) ? 'ml-[250px]' : ''; ?> transition-all duration-300">
-  <section class="grid place-items-center min-h-screen w-full transition-all duration-300">
-    <div class="flex flex-row justify-center items-start gap-24 w-full max-w-6xl">
-
-      <div class="bg-white rounded-xl shadow-lg p-6 w-80 min-h-[350px] flex flex-col items-center border border-gray-200">
-        <h2 class="text-2xl font-bold text-indigo-700 mb-4 select-none">Subjects</h2>
-        <div class="flex flex-col gap-3 w-full">
-          <?php foreach ($subjects as $subject): ?>
-            <div class="bg-indigo-50 border border-indigo-200 rounded-lg px-4 py-3 shadow-sm flex flex-col">
-              <span class="font-semibold text-indigo-800"><?php echo htmlspecialchars($subject['name']); ?></span>
-            </div>
-          <?php endforeach; ?>
-          <?php if (empty($subjects)): ?>
-            <div class="text-gray-400 text-center select-none">No subjects found.</div>
-          <?php endif; ?>
+<div class="min-h-screen bg-gray-50 transition-all duration-300">
+  <section class="grid place-items-center min-h-screen w-full py-12">
+    <div class="max-w-7xl w-full px-4">
+      <div class="mb-12 text-center">
+        <h1 class="text-5xl font-bold mb-3 text-gray-900 font-libre_baskerville_regular">Curriculum Management</h1>
+        <p class="text-gray-600 text-lg">Organize your subjects, teachers, and class schedules</p>
+      </div>
+      
+      <div class="mb-10 flex flex-col items-center">
+        <h2 class="text-xl font-semibold mb-4 text-gray-800">Select Class</h2>
+        <div class="flex gap-3">
+          <button data-class="1a" class="class-btn px-5 py-2 font-medium rounded-md bg-gray-800 text-white shadow transition-all duration-200 hover:bg-black hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500">1a</button>
+          <button data-class="2b" class="class-btn px-5 py-2 font-medium rounded-md bg-gray-800 text-white shadow transition-all duration-200 hover:bg-black hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500">2b</button>
+          <button data-class="3c" class="class-btn px-5 py-2 font-medium rounded-md bg-gray-800 text-white shadow transition-all duration-200 hover:bg-black hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500">3c</button>
+          <button data-class="4d" class="class-btn px-5 py-2 font-medium rounded-md bg-gray-800 text-white shadow transition-all duration-200 hover:bg-black hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-500">4d</button>
         </div>
       </div>
 
-
-        <div class="flex flex-col items-center justify-center select-none">
-          <h1 class="text-6xl sm:text-5xl font-extrabold text-center mb-2 font-libre_baskerville_regular">Curriculum</h1>
-          <p class="text-gray-600 mb-4">Manage your curriculum and subjects.</p>
-
-          <div>Choose the class:</div>
-          <div>
-            <button data-class="1a" class="class-btn px-3 py-1 text-sm font-semibold rounded-lg bg-indigo-500 text-white shadow transition-all duration-200 hover:bg-green-600 hover:scale-110 hover:shadow-lg focus:outline-none">
-              1a
-            </button>
-            <button data-class="2b" class="class-btn px-3 py-1 text-sm font-semibold rounded-lg bg-indigo-500 text-white shadow transition-all duration-200 hover:bg-green-600 hover:scale-110 hover:shadow-lg focus:outline-none">
-              2b
-            </button>
-            <button data-class="3c" class="class-btn px-3 py-1 text-sm font-semibold rounded-lg bg-indigo-500 text-white shadow transition-all duration-200 hover:bg-green-600 hover:scale-110 hover:shadow-lg focus:outline-none ">
-              3c
-            </button>
-            <button data-class="4d" class="class-btn px-3 py-1 text-sm font-semibold rounded-lg bg-indigo-500 text-white shadow transition-all duration-200 hover:bg-green-600 hover:scale-110 hover:shadow-lg focus:outline-none">
-              4d
-            </button>
-          </div>
-
-          <button class="w-32 h-10 mt-48 bg-green-600 text-white font-semibold rounded-xl shadow-md hover:bg-green-700 hover:scale-105 hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2">
-            <span class="material-symbols-outlined align-middle mr-1">save</span>
-              Save
-          </button>
-        </div>
-
-
-
-
-      <div class="bg-white rounded-xl shadow-lg p-6 w-80 min-h-[350px] flex flex-col items-center border border-gray-200">
-        <h2 class="text-2xl font-bold text-indigo-700 mb-4 select-none">Teachers</h2>
-        <div class="flex flex-col gap-3 w-full">
-          <?php foreach ($teachers as $teacher): ?>
-            <div class="bg-green-50 border border-green-200 rounded-lg px-4 py-3 shadow-sm flex flex-col">
-              <span class="font-semibold text-green-800"><?php echo htmlspecialchars($teacher['name']); ?></span>
-            </div>
-          <?php endforeach; ?>
-          <?php if (empty($teachers)): ?>
-            <div class="text-gray-400 text-center select-none">No teachers found.</div>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="w-full flex flex-col justify-center items-center transition-all duration-300">
-      <div class="overflow-x-auto flex justify-center items-center" >
-        <div class="w-full flex flex-col items-center ">
-
-          <div id="date-arrows-bar" class=" flex items-center bg-white bg-opacity-90 px-4 py-2 rounded-lg shadow z-30 hover:shadow-lg transition-all duration-300">
-            <span id="arrow-back" class="material-symbols-outlined cursor-pointer select-none text-3xl">arrow_back</span>
-              <div>
-                <h2 id="week-date" class="text-xl font-bold text-gray-800 mx-4"></h2>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
+        <div class="lg:col-span-3 bg-white rounded-xl shadow-md p-6 border border-gray-200">
+          <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-2">menu_book</span>
+            Subjects
+          </h2>
+          <div class="flex flex-col gap-3 w-full">
+            <?php foreach ($subjects as $subject): ?>
+              <div class="bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 shadow-sm">
+                <span class="font-medium text-gray-800"><?php echo htmlspecialchars($subject['name']); ?></span>
               </div>
-            <span id="arrow-forward" class="material-symbols-outlined cursor-pointer select-none text-3xl">arrow_forward</span>
+            <?php endforeach; ?>
+            <?php if (empty($subjects)): ?>
+              <div class="text-gray-400 text-center italic">No subjects found.</div>
+            <?php endif; ?>
           </div>
+        </div>
 
-          <div id="table-container" class="w-full flex justify-center items-center mt-2">
+        <div class="lg:col-span-6">
+          <div class="flex items-center justify-center mb-5 bg-white px-6 py-3 rounded-lg shadow-md">
+            <span id="arrow-back" class="material-symbols-outlined cursor-pointer text-3xl text-gray-800 hover:text-black">arrow_back</span>
+            <h2 id="week-date" class="text-xl font-bold text-gray-800 mx-6"></h2>
+            <span id="arrow-forward" class="material-symbols-outlined cursor-pointer text-3xl text-gray-800 hover:text-black">arrow_forward</span>
+          </div>
+          
+          <div id="table-container" class="w-full">
+          </div>
+          
+          <div class="flex justify-center mt-8">
+            <button class="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg shadow-md hover:bg-black hover:shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-700">
+              <span class="material-symbols-outlined align-middle mr-2">save</span>
+              Save Schedule
+            </button>
+          </div>
+        </div>
+        
+        <div class="lg:col-span-3 bg-white rounded-xl shadow-md p-6 border border-gray-200">
+          <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+            <span class="material-symbols-outlined mr-2">person</span>
+            Teachers
+          </h2>
+          <div class="flex flex-col gap-3 w-full">
+            <?php foreach ($teachers as $teacher): ?>
+              <div class="bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 shadow-sm">
+                <span class="font-medium text-gray-800"><?php echo htmlspecialchars($teacher['first_name'] . ' ' . $teacher['last_name']); ?></span>
+              </div>
+            <?php endforeach; ?>
+            <?php if (empty($teachers)): ?>
+              <div class="text-gray-400 text-center italic">No teachers found.</div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
     </div>
   </section>
-
 </div>
+
 <?php view('components/footer') ?>
 
 <script>
   document.querySelectorAll('.class-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.class-btn').forEach(b => b.classList.remove('active', 'bg-green-500'));
-      this.classList.add('active', 'bg-green-500');
+      document.querySelectorAll('.class-btn').forEach(b => {
+        b.classList.remove('active', 'bg-black');
+        b.classList.add('bg-gray-800');
+      });
+      this.classList.remove('bg-gray-800');
+      this.classList.add('active', 'bg-black');
     });
   });
-
 
   function getMonday(d) {
     d = new Date(d);
@@ -125,16 +119,15 @@ view('components/side-nav');
   });
   if (currentDayIdx === -1) currentDayIdx = 0;
 
-
   function getTableRows(dayIdx) {
     let rows = '';
     for (let i = 1; i <= 8; i++) {
       rows += `
         <tr>
-          <td class="px-6 py-3 h-[50px] border-2 border-gray-400 hover:bg-gray-100 transition-all duration-300"></td>
-          <td class="px-6 py-3 h-[50px] border-2 border-gray-400 hover:bg-gray-100 transition-all duration-300"></td>
-          <td class="px-6 py-3 h-[50px] border-2 border-gray-400 hover:bg-gray-100 transition-all duration-300"></td>
-          <td class="px-6 py-3 h-[50px] border-2 border-gray-400 hover:bg-gray-100 transition-all duration-300"></td>
+          <td class="px-4 py-3 h-[50px] border border-gray-300 hover:bg-gray-50 transition-all">${i}</td>
+          <td class="px-4 py-3 h-[50px] border border-gray-300 hover:bg-gray-50 transition-all"></td>
+          <td class="px-4 py-3 h-[50px] border border-gray-300 hover:bg-gray-50 transition-all"></td>
+          <td class="px-4 py-3 h-[50px] border border-gray-300 hover:bg-gray-50 transition-all"></td>
         </tr>
       `;
     }
@@ -143,13 +136,13 @@ view('components/side-nav');
 
   function renderTable(dayIdx, animate = true) {
     const tableHtml = `
-      <table class="min-w-[900px] w-11/12 max-w-6xl bg-white border border-gray-300 rounded-lg shadow-md transition-all duration-400 opacity-0 mx-auto" id="day-table">
+      <table class="w-full bg-white border border-gray-300 rounded-lg shadow-md transition-all duration-300 opacity-0" id="day-table">
         <thead>
-          <tr class="bg-black text-white">
-            <th class="px-6 py-3 text-left border-2">Subject Name</th>
-            <th class="px-6 py-3 text-left border-2">Teacher</th>
-            <th class="px-6 py-3 text-left border-2">Description</th>
-            <th class="px-6 py-3 text-left border-2">Actions</th>
+          <tr class="bg-gray-900 text-white">
+            <th class="px-4 py-3 text-left border-r border-gray-600">#</th>
+            <th class="px-4 py-3 text-left border-r border-gray-600">Subject</th>
+            <th class="px-4 py-3 text-left border-r border-gray-600">Teacher</th>
+            <th class="px-4 py-3 text-left">Notes</th>
           </tr>
         </thead>
         <tbody>
@@ -188,7 +181,6 @@ view('components/side-nav');
   document.getElementById('arrow-forward').addEventListener('click', function() {
     if (currentDayIdx < weekDays.length - 1) goToDay(currentDayIdx + 1);
   });
-
 
   updateDateDisplay(currentDayIdx);
   renderTable(currentDayIdx, false);
