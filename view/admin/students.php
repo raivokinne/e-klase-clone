@@ -1,6 +1,6 @@
 <?php view('components/head', ['title' => 'Management']) ?>
 <?php view('components/side-nav') ?>
-<div class="min-h-screen bg-gray-100 <?php echo (isset($_SESSION['user']) && in_array($_SESSION['user']['role'], ['admin','teacher'])) ? 'pl-[250px]' : ''; ?> transition-all duration-300">
+<div class="min-h-screen bg-gray-100 pl-[250px] transition-all duration-300">
   <section class="py-12">
     <div class="container mx-auto px-4">
       <div class="mb-6 flex border-b border-gray-200">

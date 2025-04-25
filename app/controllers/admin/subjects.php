@@ -1,6 +1,9 @@
 <?php
-$subjects = \Database\Database::$connection->query("SELECT * FROM subjects")->fetchAll(PDO::FETCH_ASSOC);
-$teachers = \Database\Database::$connection->query("SELECT * FROM users WHERE role = 'teacher'")->fetchAll(PDO::FETCH_ASSOC);
+use App\Models\Subject;
+use App\Models\Teacher;
+
+$subjects = Subject::all()->getAll();
+$teachers = Teacher::execute("SELECT * FROM teachers JOIN users ON teachers.user_id = users.id", [])->getAll();
 
 view('admin/subjects', [
     'title' => 'Subjects',
