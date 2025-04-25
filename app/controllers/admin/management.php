@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Classes;
 use App\Models\Teacher;
 use App\Models\Student;
+use App\Models\Subject;
 
 $teachers = Teacher::execute("
     SELECT teachers.*, users.* FROM teachers INNER JOIN users ON teachers.user_id = users.id
@@ -15,8 +17,13 @@ $students = Student::execute(
     []
 )->getAll();
 
-view('admin/students', [
+$subjects = Subject::all()->getAll();
+$classes = Classes::all()->getAll();
+
+view('admin/management', [
     'title' => 'Students',
     'teachers' => $teachers,
-    'students' => $students
+    'students' => $students,
+    'subjects' => $subjects,
+    'classes' => $classes
 ]);

@@ -9,36 +9,9 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password TEXT NOT NULL,
     role ENUM('admin', 'student', 'teacher') NOT NULL DEFAULT 'student',
-    avatar VARCHAR,
+    avatar VARCHAR(255) DEFAULT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO users (first_name, last_name, email, password, role) 
-VALUES (
-    'Alice',
-    'Admin',
-    'alice.admin@example.com',
-    '$2a$12$neUO9IA47So5tcMOuLvppOnZ3LzB3uGoOgyQ5hEdCnpYSs8.2HNFO', -- hash for 'AdminPass123'
-    'admin'
-);
-
-INSERT INTO users (first_name, last_name, email, password, role) 
-VALUES (
-    'Tom',
-    'Teacher',
-    'tom.teacher@example.com',
-    '$2a$12$cRoHDJ1ZK5bN7CyuDKjnduqAMPvlzvSz292pUV8dT0Oje6l.D7vV2', -- hash for 'TeacherPass123'
-    'teacher'
-);
-
-INSERT INTO users (first_name, last_name, email, password, role) 
-VALUES (
-    'Sam',
-    'Student',
-    'sam.student@example.com',
-    '$2a$12$FT0jEYdY0olzMfAnPHp1uufDDtfymblPstv5acUbCZ3e6EAGpCJvK', -- hash for 'StudentPass123'
-    'student'
 );
 
 CREATE TABLE subjects (
@@ -50,8 +23,6 @@ CREATE TABLE subjects (
 
 CREATE TABLE students (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
     class VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,
     id_number VARCHAR(255) NOT NULL,
@@ -62,8 +33,6 @@ CREATE TABLE students (
 
 CREATE TABLE teachers (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
     subject_id INT NOT NULL,
     user_id INT NOT NULL,
     id_number VARCHAR(255) NOT NULL,
@@ -123,6 +92,13 @@ CREATE TABLE grades (
     FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
+CREATE TABLE classes (
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)
+
 INSERT INTO subjects (name) VALUES 
 ('Mathematics'), 
 ('English'), 
@@ -136,18 +112,44 @@ INSERT INTO subjects (name) VALUES
 ('Economics'), 
 ('Political Science');
 
+INSERT INTO classes (name) VALUES
+('1A'),
+('1B'),
+('2A'),
+('2B'),
+('3A'),
+('3B'),
+('4A'),
+('4B'),
+('5A'),
+('5B'),
+('6A'),
+('6B'),
+('7A'),
+('7B'),
+('8A'),
+('8B'),
+('9A'),
+('9B'),
+('10A'),
+('10B'),
+('11A'),
+('11B'),
+('12A'),
+('12B');
+
 INSERT INTO users (first_name, last_name, email, password, role) VALUES
 ('Alice', 'Admin', 'alice.admin@example.com', '$2a$12$neUO9IA47So5tcMOuLvppOnZ3LzB3uGoOgyQ5hEdCnpYSs8.2HNFO', 'admin'),
 ('Tom', 'Teacher', 'tom.teacher@example.com', '$2a$12$cRoHDJ1ZK5bN7CyuDKjnduqAMPvlzvSz292pUV8dT0Oje6l.D7vV2', 'teacher'),
 ('Sam', 'Student', 'sam.student@example.com', '$2a$12$FT0jEYdY0olzMfAnPHp1uufDDtfymblPstv5acUbCZ3e6EAGpCJvK', 'student'),
 ('Bob', 'Williams', 'bob.williams@example.com', '$2a$12$FT0jEYdY0olzMfAnPHp1uufDDtfymblPstv5acUbCZ3e6EAGpCJvK', 'student');
 
-INSERT INTO teachers (first_name, last_name, subject_id, user_id, id_number) VALUES 
-('Tome', 'Smith', 1, 2, '123456789');
+INSERT INTO teachers (subject_id, user_id, id_number) VALUES 
+(1, 2, '123456789');
 
-INSERT INTO students (first_name, last_name, class, user_id, id_number) VALUES 
-('Sam', 'Smith', '10A', 3, '123456789'),
-('Bob', 'Williams', '10B', 4, '123456789');
+INSERT INTO students (class, user_id, id_number) VALUES 
+('10A', 3, '123456789'),
+('10B', 4, '123456789');
 
 INSERT INTO assignments (name, description, subject_id) VALUES 
 ('Assignment 1', 'This is assignment 1', 1),
