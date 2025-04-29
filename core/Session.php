@@ -19,7 +19,7 @@ class Session
      */
     public static function put($key, $value): void
     {
-        $_SESSION[$key] = $value;
+        $_SESSION[$key] = sanitize($value);
     }
     /**
      * @param mixed $key
@@ -36,7 +36,7 @@ class Session
      */
     public static function flash($key, $value): void
     {
-        $_SESSION['_flash'][$key] = $value;
+        $_SESSION['_flash'][$key] = sanitize($value);
     }
     /**
      * @return void

@@ -21,7 +21,7 @@ class Database
         try {
             self::$connection = new PDO($dsn, $config['username'], $config['password']);
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
             return self::$connection;
         } catch (\PDOException $e) {
             die($e->getMessage());
