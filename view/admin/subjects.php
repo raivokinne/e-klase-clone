@@ -7,11 +7,6 @@ view('components/side-nav');
 <div class="min-h-screen bg-gray-50 transition-all duration-300">
     <section class="grid place-items-center min-h-screen w-full py-12">
         <div class="max-w-7xl w-full px-4">
-            <div class="mb-12 text-center">
-                <h1 class="text-5xl font-bold mb-3 text-gray-900 font-libre_baskerville_regular">Curriculum Management</h1>
-                <p class="text-gray-600 text-lg">Organize your subjects, teachers, and class schedules</p>
-            </div>
-
             <div class="mb-10 flex flex-col items-center">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">Select Class</h2>
                 <div class="flex gap-3">
@@ -31,7 +26,7 @@ view('components/side-nav');
                     <div class="flex flex-col gap-3 w-full">
                         <?php foreach ($subjects as $subject): ?>
                             <div class="bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 shadow-sm">
-                                <span class="font-medium text-gray-800"><?php echo htmlspecialchars($subject['name']); ?></span>
+                                <span class="font-medium text-gray-800"><?php echo htmlspecialchars($subject->name); ?></span>
                             </div>
                         <?php endforeach; ?>
                         <?php if (empty($subjects)): ?>
@@ -66,7 +61,7 @@ view('components/side-nav');
                     <div class="flex flex-col gap-3 w-full">
                         <?php foreach ($teachers as $teacher): ?>
                             <div class="bg-gray-100 border border-gray-300 rounded-lg px-4 py-3 shadow-sm">
-                                <span class="font-medium text-gray-800"><?php echo htmlspecialchars($teacher['first_name'] . ' ' . $teacher['last_name']); ?></span>
+                                <span class="font-medium text-gray-800"><?php echo htmlspecialchars($teacher->first_name . ' ' . $teacher->last_name); ?></span>
                             </div>
                         <?php endforeach; ?>
                         <?php if (empty($teachers)): ?>
