@@ -10,13 +10,13 @@
 
 			<?php if (isset($_SESSION["user"])): ?>
 				<div class="bg-zinc-100 p-6 rounded-lg shadow-md w-full max-w-3xl">
-					<h2 class="text-2xl font-bold mb-4">Welcome, <?php echo htmlspecialchars($_SESSION["user"]["first_name"] ?? "User"); ?></h2>
+					<h2 class="text-2xl font-bold mb-4">Welcome, <?php echo htmlspecialchars($_SESSION["user"]->first_name ?? "User"); ?></h2>
 
-					<?php if ($_SESSION["user"]["role"] === "admin"): ?>
+					<?php if ($_SESSION["user"]->role === "admin"): ?>
 						<p class="mb-4">Access your administrative tools through the side navigation panel.</p>
-					<?php elseif ($_SESSION["user"]["role"] === "teacher"): ?>
+					<?php elseif ($_SESSION["user"]->role === "teacher"): ?>
 						<p class="mb-4">Manage your subjects and student grades using the navigation menu.</p>
-					<?php elseif ($_SESSION["user"]["role"] === "student"): ?>
+					<?php elseif ($_SESSION["user"]->role === "student"): ?>
 						<p class="mb-4">View your course information and grades through the navigation bar above.</p>
 					<?php endif; ?>
 				</div>

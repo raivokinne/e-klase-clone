@@ -8,7 +8,7 @@ $student = Student::find($id)->get();
 if ($student) {
 	Student::delete($id);
 
-	User::delete($student['user_id']);
+	User::delete($student->user_id);
 }
 
 redirect('/management');

@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use Core\Model;
 
-class Task extends Model {
+class Assignment extends Model {
     protected static string $table = 'tasks';
 }
