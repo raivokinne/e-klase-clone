@@ -6,7 +6,7 @@ class Student
 {
     public function handle()
     {
-        if (!$_SESSION['user'] || $_SESSION['user']['role'] !== 'student') {
+        if (!$_SESSION['user'] || $_SESSION['user']->role !== 'student') {
             redirect('/');
         }
     }

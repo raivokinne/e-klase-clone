@@ -3,7 +3,7 @@
         <div class="relative px-6 py-4 text-lg font-bold text-white uppercase border-b border-zinc-700">
             ClassNet
         </div>
-        
+
         <button id="toggleSidebar" class="absolute -right-3 top-4 bg-zinc-900 rounded-full p-1 shadow-lg border border-zinc-700 hover:bg-zinc-800 transition-all">
             <svg id="collapseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
@@ -23,7 +23,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["role"] === "student"): ?>
+            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]->role === "student"): ?>
                 <a href="/grades" class="flex items-center px-6 py-3 hover:bg-black hover:border-l-4 border-blue-500 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 sidebar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -32,7 +32,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["role"] === "teacher"): ?>
+            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]->role === "teacher"): ?>
                 <a href="/my-subjects" class="flex items-center px-6 py-3 hover:bg-black hover:border-l-4 border-blue-500 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 sidebar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -47,7 +47,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["role"] === "admin"): ?>
+            <?php if (isset($_SESSION["user"]) && $_SESSION["user"]->role === "admin"): ?>
                 <a href="/subjects" class="flex items-center px-6 py-3 hover:bg-black hover:border-l-4 border-blue-500 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 sidebar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -72,13 +72,13 @@
                     <span class="sidebar-text">Login</span>
                 </a>
             <?php else: ?>
-                <a href="/profile/<?= $_SESSION["user"]["id"] ?>/edit" class="flex items-center px-6 py-4 hover:bg-zinc-800 transition-all duration-300">
+                <a href="/profile/<?= $_SESSION["user"]->id ?>/edit" class="flex items-center px-6 py-4 hover:bg-zinc-800 transition-all duration-300">
                     <div class="w-6 h-6 bg-white rounded-full mr-3 flex-shrink-0 sidebar-icon">
                         <img src="/assets/profile-icon.png" alt="profile" class="w-6 h-6 rounded-full">
                     </div>
-                    <span class="sidebar-text">Profile (<?php echo ucfirst($_SESSION["user"]["role"]); ?>)</span>
+                    <span class="sidebar-text">Profile (<?php echo ucfirst($_SESSION["user"]->role); ?>)</span>
                 </a>
-                
+
                 <a href="/logout" class="flex items-center px-6 py-4 hover:bg-red-900 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 sidebar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -98,31 +98,31 @@
         const expandIcon = document.getElementById('expandIcon');
         const mainContent = document.querySelector('.min-h-screen');
         const sidebarTexts = document.querySelectorAll('.sidebar-text');
-        
+
         function toggleSidebar() {
             if (sidebar.classList.contains('w-[250px]')) {
                 sidebar.classList.remove('w-[250px]');
                 sidebar.classList.add('w-[70px]');
-                
+
                 sidebarTexts.forEach(text => {
                     text.classList.add('hidden');
                 });
-                
+
                 collapseIcon.classList.add('hidden');
                 expandIcon.classList.remove('hidden');
             } else {
                 sidebar.classList.remove('w-[70px]');
                 sidebar.classList.add('w-[250px]');
-                
+
                 sidebarTexts.forEach(text => {
                     text.classList.remove('hidden');
                 });
-                
+
                 collapseIcon.classList.remove('hidden');
                 expandIcon.classList.add('hidden');
             }
         }
-        
+
         toggleBtn.addEventListener('click', toggleSidebar);
     });
 </script>

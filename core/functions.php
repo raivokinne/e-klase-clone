@@ -1,7 +1,5 @@
 <?php
 
-namespace Core;
-
 use Core\Handlers\AuthUser;
 use App\Models\User;
 
