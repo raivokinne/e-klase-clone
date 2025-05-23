@@ -1,0 +1,20 @@
+{
+    "stundu_saraksts": [
+        {
+            "name": "1A",
+            "dienas": [
+                {
+                    "name": "friday",
+                    "subjects": [
+                        {
+                            "id": 1,
+                            "teachers": "Tom Teacher",
+                            "subject": "Mathematics",
+                            "kabinets": "123P"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

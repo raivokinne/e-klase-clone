@@ -1,4 +1,4 @@
-<div id="sidebar" class="fixed left-0 z-40 h-screen bg-zinc-900 text-white pt-[20px] shadow-lg transition-all duration-300 w-[250px]">
+<div id="sidebar" class="fixed left-0 z-40 h-screen bg-zinc-900 text-white pt-[20px] shadow-lg transition-all duration-300 w-[250px] select-none ">
     <div class="flex flex-col h-full relative">
         <div class="relative px-6 py-4 text-lg font-bold text-white uppercase border-b border-zinc-700">
             ClassNet
@@ -64,7 +64,7 @@
         </div>
 
         <div class="mt-auto border-t border-zinc-700">
-            <?php if (!isset($_SESSION["user"])): ?>
+            <?php if (! isset($_SESSION["user"])): ?>
                 <a href="/login" class="flex items-center px-6 py-4 hover:bg-blue-900 transition-all duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 sidebar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -72,7 +72,7 @@
                     <span class="sidebar-text">Login</span>
                 </a>
             <?php else: ?>
-                <a href="/profile/<?= $_SESSION["user"]->id ?>/edit" class="flex items-center px-6 py-4 hover:bg-zinc-800 transition-all duration-300">
+                <a href="/profile/<?php echo $_SESSION["user"]->id ?>/edit" class="flex items-center px-6 py-4 hover:bg-zinc-800 transition-all duration-300">
                     <div class="w-6 h-6 bg-white rounded-full mr-3 flex-shrink-0 sidebar-icon">
                         <img src="/assets/profile-icon.png" alt="profile" class="w-6 h-6 rounded-full">
                     </div>

@@ -24,3 +24,5 @@ $router->get('/show/{id}/student', 'admin/student/show.php')->only('admin');
 $router->put('/update/{id}/student', 'admin/student/update.php')->only('admin');
 $router->get('/show/{id}/teacher', 'admin/teacher/show.php')->only('admin');
 $router->put('/update/{id}/teacher', 'admin/teacher/update.php')->only('admin');
+$router->post('/api/schedule/save', 'admin/schedule/save.php')->only('admin');
+$router->post('/subjects', 'admin/subjects.php')->only('admin');
