@@ -56,8 +56,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Add new class
         $existingData['stundu_saraksts'][] = $newClassData;
     } else {
-        // Update existing class
-        $existingData['stundu_saraksts'][$classIndex] = $newClassData;
+        // Update existing class by merging the days
+        foreach ($newClassData['dienas'] as $newDay) {
+            $dayExists = false;
+            foreach ($existingData['stundu_saraksts'][$classIndex]['dienas'] as &$existingDay) {
+                if ($existingDay['name'] === $newDay['name']) {
+                    // Merge subjects for the same day
+                    if (isset($newDay['subjects'])) {
+                        if (! isset($existingDay['subjects'])) {
+                            $existingDay['subjects'] = [];
+                        }
+                        $existingDay['subjects'] = array_merge($existingDay['subjects'], $newDay['subjects']);
+                    }
+                    $dayExists = true;
+                    break;
+                }
+            }
+
+            // If day doesn't exist, add it
+            if (! $dayExists) {
+                $existingData['stundu_saraksts'][$classIndex]['dienas'][] = $newDay;
+            }
+        }
     }
 
     // Ensure the directory exists

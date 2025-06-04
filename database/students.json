@@ -1,0 +1,57 @@
+{
+    "10A": [
+        {
+            "id": 1,
+            "name": "Sam Student",
+            "id_number": "123456789",
+            "grades": [
+                {
+                    "subject": "Mathematics",
+                    "grades": [4.5, 3.8, 4.2],
+                    "average": 4.17
+                },
+                {
+                    "subject": "Physics",
+                    "grades": [4.0, 3.5, 4.8],
+                    "average": 4.1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Bob Williams",
+            "id_number": "987654321",
+            "grades": [
+                {
+                    "subject": "Mathematics",
+                    "grades": [4.0, 3.5, 4.8],
+                    "average": 4.1
+                },
+                {
+                    "subject": "Physics",
+                    "grades": [3.8, 4.2, 4.5],
+                    "average": 4.17
+                }
+            ]
+        }
+    ],
+    "10B": [
+        {
+            "id": 3,
+            "name": "Jane Doe",
+            "id_number": "555666777",
+            "grades": [
+                {
+                    "subject": "Mathematics",
+                    "grades": [3.2, 4.1, 3.9],
+                    "average": 3.73
+                },
+                {
+                    "subject": "Physics",
+                    "grades": [4.2, 3.8, 4.0],
+                    "average": 4.0
+                }
+            ]
+        }
+    ]
+} 

@@ -1,5 +1,5 @@
-<?php view('components/head', ['title' => 'Edit Teacher']) ?>
-<?php view('components/side-nav') ?>
+<?php view('components/head', ['title' => 'Edit Teacher'])?>
+<?php view('components/side-nav')?>
 
 <div class="min-h-screen bg-gray-100 pl-[250px] transition-all duration-300">
 	<section class="py-12">
@@ -26,8 +26,7 @@
 			<?php endif; ?>
 
 			<div class="bg-white rounded-lg shadow-md p-6">
-				<form action="/update/<?php echo $teacher['user_id']; ?>/teacher" method="post" class="space-y-4">
-					<input type="hidden" name="_method" value="PUT">
+				<form action="/update/<?php echo $teacher['id']; ?>/teacher" method="post" class="space-y-4">
 					<input type="hidden" name="id" value="<?php echo $teacher['id']; ?>">
 					<input type="hidden" name="user_id" value="<?php echo $teacher['user_id']; ?>">
 					<input type="hidden" name="role" value="teacher">
@@ -67,7 +66,7 @@
 								class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-black focus:border-black">
 								<option value="">Select Subject</option>
 								<?php foreach ($subjects as $subject): ?>
-									<option value="<?php echo $subject['id']; ?>" <?php echo ($teacher['subject_id'] == $subject['id']) ? 'selected' : ''; ?>>
+									<option value="<?php echo $subject['id']; ?>"<?php echo($teacher['subject_id'] == $subject['id']) ? 'selected' : ''; ?>>
 										<?php echo $subject['name']; ?>
 									</option>
 								<?php endforeach; ?>
@@ -102,4 +101,4 @@
 	</section>
 </div>
 
-<?php view('components/footer') ?>
+<?php view('components/footer')?>

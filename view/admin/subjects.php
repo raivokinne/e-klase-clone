@@ -548,7 +548,6 @@
 
                     // Save location
                     scheduleData[classId][day][period].location = location;
-                    showNotification(`Location set to ${location === 'P' ? 'Priekuļi' : 'Cēsis'}`, 'success');
                 }
             });
         });

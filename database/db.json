@@ -1,16 +1,270 @@
 {
     "stundu_saraksts": [
         {
-            "name": "1A",
+            "name": "10A",
             "dienas": [
                 {
-                    "name": "friday",
+                    "name": "monday",
                     "subjects": [
                         {
                             "id": 1,
                             "teachers": "Tom Teacher",
                             "subject": "Mathematics",
                             "kabinets": "123P"
+                        },
+                        {
+                            "id": 2,
+                            "teachers": "Tom Teacher",
+                            "subject": "Physics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 3,
+                            "teachers": "Tom Teacher",
+                            "subject": "Chemistry",
+                            "kabinets": "345P"
+                        },
+                        {
+                            "id": 4,
+                            "teachers": "Tom Teacher",
+                            "subject": "Biology",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 5,
+                            "teachers": "Tom Teacher",
+                            "subject": "Computer Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 6,
+                            "teachers": "Tom Teacher",
+                            "subject": "English",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 7,
+                            "teachers": "Tom Teacher",
+                            "subject": "Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 8,
+                            "teachers": "Tom Teacher",
+                            "subject": "Geography",
+                            "kabinets": "123C"
+                        }
+                    ]
+                },
+                {
+                    "name": "tuesday",
+                    "subjects": [
+                        {
+                            "id": 1,
+                            "teachers": "Tom Teacher",
+                            "subject": "Biology",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 2,
+                            "teachers": "Tom Teacher",
+                            "subject": "Computer Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 3,
+                            "teachers": "Tom Teacher",
+                            "subject": "Mathematics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 4,
+                            "teachers": "Tom Teacher",
+                            "subject": "Physics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 5,
+                            "teachers": "Tom Teacher",
+                            "subject": "Chemistry",
+                            "kabinets": "345P"
+                        },
+                        {
+                            "id": 6,
+                            "teachers": "Tom Teacher",
+                            "subject": "English",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 7,
+                            "teachers": "Tom Teacher",
+                            "subject": "Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 8,
+                            "teachers": "Tom Teacher",
+                            "subject": "Geography",
+                            "kabinets": "123C"
+                        }
+                    ]
+                },
+                {
+                    "name": "wednesday",
+                    "subjects": [
+                        {
+                            "id": 1,
+                            "teachers": "Tom Teacher",
+                            "subject": "Mathematics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 2,
+                            "teachers": "Tom Teacher",
+                            "subject": "Physics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 3,
+                            "teachers": "Tom Teacher",
+                            "subject": "Chemistry",
+                            "kabinets": "345P"
+                        },
+                        {
+                            "id": 4,
+                            "teachers": "Tom Teacher",
+                            "subject": "Biology",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 5,
+                            "teachers": "Tom Teacher",
+                            "subject": "Computer Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 6,
+                            "teachers": "Tom Teacher",
+                            "subject": "English",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 7,
+                            "teachers": "Tom Teacher",
+                            "subject": "Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 8,
+                            "teachers": "Tom Teacher",
+                            "subject": "Geography",
+                            "kabinets": "123C"
+                        }
+                    ]
+                },
+                {
+                    "name": "thursday",
+                    "subjects": [
+                        {
+                            "id": 1,
+                            "teachers": "Tom Teacher",
+                            "subject": "Chemistry",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 2,
+                            "teachers": "Tom Teacher",
+                            "subject": "Mathematics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 3,
+                            "teachers": "Tom Teacher",
+                            "subject": "Biology",
+                            "kabinets": "345P"
+                        },
+                        {
+                            "id": 4,
+                            "teachers": "Tom Teacher",
+                            "subject": "Physics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 5,
+                            "teachers": "Tom Teacher",
+                            "subject": "Computer Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 6,
+                            "teachers": "Tom Teacher",
+                            "subject": "English",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 7,
+                            "teachers": "Tom Teacher",
+                            "subject": "Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 8,
+                            "teachers": "Tom Teacher",
+                            "subject": "Geography",
+                            "kabinets": "123C"
+                        }
+                    ]
+                },
+                {
+                    "name": "friday",
+                    "subjects": [
+                        {
+                            "id": 1,
+                            "teachers": "Tom Teacher",
+                            "subject": "English",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 2,
+                            "teachers": "Tom Teacher",
+                            "subject": "Science",
+                            "kabinets": "342C"
+                        },
+                        {
+                            "id": 3,
+                            "teachers": "Tom Teacher",
+                            "subject": "Geography",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 4,
+                            "teachers": "Tom Teacher",
+                            "subject": "Physics",
+                            "kabinets": "123C"
+                        },
+                        {
+                            "id": 5,
+                            "teachers": "Tom Teacher",
+                            "subject": "Mathematics",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 6,
+                            "teachers": "Tom Teacher",
+                            "subject": "Chemistry",
+                            "kabinets": "345P"
+                        },
+                        {
+                            "id": 7,
+                            "teachers": "Tom Teacher",
+                            "subject": "Biology",
+                            "kabinets": "123P"
+                        },
+                        {
+                            "id": 8,
+                            "teachers": "Tom Teacher",
+                            "subject": "Computer Science",
+                            "kabinets": "342C"
                         }
                     ]
                 }
