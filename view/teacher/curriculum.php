@@ -27,118 +27,49 @@
     </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Side Navigation Placeholder -->
-    <div class="fixed left-0 top-0 h-full w-[250px] bg-gray-800 text-white p-4">
-        <h2 class="text-xl font-bold mb-4">Teacher Panel</h2>
-        <nav class="space-y-2">
-            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Dashboard</a>
-            <a href="#" class="block py-2 px-4 rounded bg-gray-700">Curriculum</a>
-            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Grades</a>
-            <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">Messages</a>
-        </nav>
-    </div>
+    <?php require_once __DIR__ . '/../components/side-nav.php'; ?>
 
     <div class="min-h-screen bg-gray-100 pl-[250px] transition-all duration-300">
         <section class="py-12">
             <div class="container mx-auto px-4">
                 <div class="mb-6">
                     <h1 class="text-3xl font-bold text-black">My Curriculum</h1>
-                    <p class="text-gray-600 mt-2">Subject: Mathematics | Teacher: Tom Teacher</p>
+                    <p class="text-gray-600 mt-2">Subject:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <?php echo htmlspecialchars($subject->name) ?> | Teacher:<?php echo htmlspecialchars($teacher->teacher_name) ?></p>
                 </div>
 
                 <div class="grid grid-cols-1 gap-6">
-                    <!-- Monday -->
+                    <?php foreach ($days as $day): ?>
                     <div class="bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-semibold text-black mb-4">Monday</h2>
+                        <h2 class="text-xl font-semibold text-black mb-4"><?php echo $day ?></h2>
                         <div class="overflow-x-auto">
                             <table class="min-w-full divide-y divide-gray-200 my-4">
                                 <thead class="bg-gray-50">
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Time</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Class</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-8">Time</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-8">Class</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Subject</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Room</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-8">Room</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
+                                    <?php foreach ($timeSlots as $time): ?>
                                     <tr class="group hover:bg-gray-50 transition-all duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">08:30 - 09:10</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Mathematics', '08:30 - 09:10', 'Monday')">10A</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Mathematics', '08:30 - 09:10', 'Monday')">Mathematics</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900">123P</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50"><?php echo $time ?></td>
+                                        <?php if (! empty($schedule[$day][$time])): ?>
+<?php $lesson = $schedule[$day][$time][0]; ?>
+                                            <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('<?php echo htmlspecialchars($lesson['class']) ?>', '<?php echo htmlspecialchars($lesson['subject']) ?>', '<?php echo $time ?>', '<?php echo $day ?>')"><?php echo htmlspecialchars($lesson['class']) ?></td>
+                                            <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('<?php echo htmlspecialchars($lesson['class']) ?>', '<?php echo htmlspecialchars($lesson['subject']) ?>', '<?php echo $time ?>', '<?php echo $day ?>')"><?php echo htmlspecialchars($lesson['subject']) ?></td>
+                                            <td class="px-6 py-4 text-sm text-gray-900"><?php echo htmlspecialchars($lesson['room']) ?></td>
+                                        <?php else: ?>
+                                            <td class="px-6 py-4 text-sm text-gray-500" colspan="3"></td>
+                                        <?php endif; ?>
                                     </tr>
-                                    <tr class="group hover:bg-gray-50 transition-all duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">09:10 - 09:50</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Physics', '09:10 - 09:50', 'Monday')">10A</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Physics', '09:10 - 09:50', 'Monday')">Physics</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900">123P</td>
-                                    </tr>
-                                    <tr class="group hover:bg-gray-50 transition-all duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">09:50 - 10:30</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Chemistry', '09:50 - 10:30', 'Monday')">10A</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Chemistry', '09:50 - 10:30', 'Monday')">Chemistry</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900">345P</td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-                    <!-- Tuesday -->
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-semibold text-black mb-4">Tuesday</h2>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 my-4">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Time</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Class</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Subject</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Room</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="group hover:bg-gray-50 transition-all duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">08:30 - 09:10</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Biology', '08:30 - 09:10', 'Tuesday')">10A</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Biology', '08:30 - 09:10', 'Tuesday')">Biology</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900">123P</td>
-                                    </tr>
-                                    <tr class="group hover:bg-gray-50 transition-all duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">09:10 - 09:50</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Computer Science', '09:10 - 09:50', 'Tuesday')">10A</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Computer Science', '09:10 - 09:50', 'Tuesday')">Computer Science</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900">342C</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Rest of the week would follow the same pattern -->
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-xl font-semibold text-black mb-4">Wednesday</h2>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200 my-4">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Time</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Class</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Subject</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Room</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="group hover:bg-gray-50 transition-all duration-200">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">08:30 - 09:10</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Mathematics', '08:30 - 09:10', 'Wednesday')">10A</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 clickable-cell" onclick="openStudentModal('10A', 'Mathematics', '08:30 - 09:10', 'Wednesday')">Mathematics</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900">123P</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
@@ -176,8 +107,6 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Student</label>
                                     <select id="gradeStudentSelect" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         <option value="">Select Student</option>
-                                        <option value="1">Sam Student</option>
-                                        <option value="2">Bob Williams</option>
                                     </select>
                                 </div>
                                 <div>
@@ -202,7 +131,6 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Name</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Number</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Grades</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Average</th>
                                 </tr>
@@ -222,6 +150,7 @@
         let currentSubject = '';
         let currentTime = '';
         let currentDay = '';
+        let currentStudents = [];
 
         async function openStudentModal(className, subject, time, day) {
             currentClass = className;
@@ -233,14 +162,17 @@
             document.getElementById('modalSubtitle').textContent = `Subject: ${subject} | Time: ${time} | Day: ${day}`;
 
             try {
-                const response = await fetch(`/teacher/students?class=${encodeURIComponent(className)}&subject=${encodeURIComponent(subject)}`);
+                const response = await fetch(`<?php echo $_SERVER['REQUEST_URI'] ?>?action=get_students&class=${encodeURIComponent(className)}&subject=${encodeURIComponent(subject)}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch students');
                 }
                 const students = await response.json();
+                currentStudents = students;
                 populateStudentsTable(students);
+                populateStudentSelect(students);
                 document.getElementById('studentModal').classList.remove('hidden');
             } catch (error) {
+                console.error('Error:', error);
                 showNotification('Error loading students: ' + error.message, 'error');
             }
         }
@@ -265,12 +197,23 @@
 
                 row.innerHTML = `
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${student.name}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${student.id_number}</td>
                     <td class="px-6 py-4 text-sm text-gray-900">${gradesText}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">${averageText}</td>
                 `;
 
                 tbody.appendChild(row);
+            });
+        }
+
+        function populateStudentSelect(students) {
+            const select = document.getElementById('gradeStudentSelect');
+            select.innerHTML = '<option value="">Select Student</option>';
+
+            students.forEach(student => {
+                const option = document.createElement('option');
+                option.value = student.id;
+                option.textContent = student.name;
+                select.appendChild(option);
             });
         }
 
@@ -301,13 +244,14 @@
             }
 
             try {
-                const response = await fetch('/teacher/students', {
+                const response = await fetch('<?php echo $_SERVER['REQUEST_URI'] ?>', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        student_id: parseInt(studentId),
+                        action: 'add_grade',
+                        student_id: studentId,
                         subject: currentSubject,
                         grade: grade,
                         class: currentClass
@@ -319,54 +263,33 @@
                 }
 
                 const result = await response.json();
-
-                // Refresh the students list
-                const studentsResponse = await fetch(`/teacher/students?class=${encodeURIComponent(currentClass)}&subject=${encodeURIComponent(currentSubject)}`);
-                if (!studentsResponse.ok) {
-                    throw new Error('Failed to refresh students');
+                if (result.success) {
+                    showNotification('Grade added successfully', 'success');
+                    hideAddGradeForm();
+                    // Refresh the students table
+                    openStudentModal(currentClass, currentSubject, currentTime, currentDay);
+                } else {
+                    throw new Error(result.error || 'Failed to add grade');
                 }
-                const students = await studentsResponse.json();
-                populateStudentsTable(students);
-
-                hideAddGradeForm();
-                showNotification('Grade added successfully!', 'success');
             } catch (error) {
+                console.error('Error:', error);
                 showNotification('Error adding grade: ' + error.message, 'error');
             }
         }
 
-        function editGrades(studentId) {
-            alert(`Edit grades for student ID: ${studentId}\nThis would open a detailed grade editing interface.`);
-        }
-
-        function viewHistory(studentId) {
-            alert(`View grade history for student ID: ${studentId}\nThis would show all historical grades and trends.`);
-        }
-
-        function showNotification(message, type = 'info') {
+        function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 p-4 rounded-md z-50 ${
-                type === 'success' ? 'bg-green-500' :
-                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-            } text-white shadow-lg transform transition-all duration-300`;
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } text-white z-50`;
             notification.textContent = message;
 
             document.body.appendChild(notification);
 
             setTimeout(() => {
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
+                notification.remove();
             }, 3000);
         }
-
-        // Close modal when clicking outside of it
-        document.getElementById('studentModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeStudentModal();
-            }
-        });
     </script>
 </body>
 </html>

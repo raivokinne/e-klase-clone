@@ -32,36 +32,142 @@ if (! $subject) {
     redirect('/login');
 }
 
-// Get the teacher's schedule from the database
-$schedule = [];
+// Handle AJAX requests for students
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'get_students') {
+    header('Content-Type: application/json');
 
-// Read schedule from db.json
-$dbFile = BASE_PATH . '/database/db.json';
-if (file_exists($dbFile)) {
-    $fileContent = file_get_contents($dbFile);
-    if ($fileContent !== false) {
-        $decodedData = json_decode($fileContent, true);
-        if ($decodedData && isset($decodedData['stundu_saraksts'])) {
-            foreach ($decodedData['stundu_saraksts'] as $class) {
-                if (isset($class['dienas'])) {
-                    foreach ($class['dienas'] as $day) {
-                        if (isset($day['subjects'])) {
-                            foreach ($day['subjects'] as $subject) {
-                                if (isset($subject['time']) && isset($subject['subject'])) {
-                                    $schedule[$day['name']][$subject['time']][] = [
-                                        'class'   => $class['name'],
-                                        'subject' => $subject['subject'],
-                                        'room'    => $subject['room'] ?? 'N/A',
-                                    ];
-                                }
-                            }
-                        }
-                    }
-                }
+    $class   = $_GET['class'] ?? '';
+    $subject = $_GET['subject'] ?? '';
+
+    if (empty($class)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Class parameter is required']);
+        exit;
+    }
+
+    // Read students from JSON file
+    $studentsFile = BASE_PATH . '/database/students.json';
+
+    if (! file_exists($studentsFile)) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Students data not found']);
+        exit;
+    }
+
+    $studentsData = json_decode(file_get_contents($studentsFile), true);
+
+    if (! isset($studentsData[$class])) {
+        echo json_encode([]);
+        exit;
+    }
+
+    $students = $studentsData[$class];
+
+    // If subject is specified, filter grades for that subject
+    if (! empty($subject)) {
+        foreach ($students as &$student) {
+            $subjectGrades = array_filter($student['grades'], function ($grade) use ($subject) {
+                return $grade['subject'] === $subject;
+            });
+
+            if (! empty($subjectGrades)) {
+                $student['grades'] = array_values($subjectGrades);
+            } else {
+                $student['grades'] = [[
+                    'subject' => $subject,
+                    'grades'  => [],
+                    'average' => 0,
+                ]];
             }
         }
     }
+
+    echo json_encode($students);
+    exit;
 }
+
+// Handle adding grades
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+
+    // Get JSON data from request body
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true);
+
+    if (! $data || ! isset($data['action']) || $data['action'] !== 'add_grade') {
+        http_response_code(400);
+        echo json_encode(['error' => 'Invalid request']);
+        exit;
+    }
+
+    $studentId   = $data['student_id'] ?? '';
+    $subjectName = $data['subject'] ?? '';
+    $grade       = $data['grade'] ?? '';
+    $className   = $data['class'] ?? '';
+
+    if (empty($studentId) || empty($subjectName) || empty($grade) || empty($className)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Missing required parameters']);
+        exit;
+    }
+
+    $studentsFile = BASE_PATH . '/database/students.json';
+
+    if (! file_exists($studentsFile)) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Students data not found']);
+        exit;
+    }
+
+    $studentsData = json_decode(file_get_contents($studentsFile), true);
+
+    if (! isset($studentsData[$className])) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Class not found']);
+        exit;
+    }
+
+    $classStudents = &$studentsData[$className];
+    $studentIndex  = array_search($studentId, array_column($classStudents, 'id'));
+
+    if ($studentIndex === false) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Student not found']);
+        exit;
+    }
+
+    $student      = &$classStudents[$studentIndex];
+    $subjectIndex = array_search($subjectName, array_column($student['grades'], 'subject'));
+
+    if ($subjectIndex === false) {
+        // Add new subject grades
+        $student['grades'][] = [
+            'subject' => $subjectName,
+            'grades'  => [floatval($grade)],
+            'average' => floatval($grade),
+        ];
+    } else {
+        // Add grade to existing subject
+        $student['grades'][$subjectIndex]['grades'][] = floatval($grade);
+        $grades                                       = $student['grades'][$subjectIndex]['grades'];
+        $student['grades'][$subjectIndex]['average']  = array_sum($grades) / count($grades);
+    }
+
+    if (file_put_contents($studentsFile, json_encode($studentsData, JSON_PRETTY_PRINT))) {
+        echo json_encode([
+            'success' => true,
+            'message' => 'Grade added successfully',
+            'data'    => $student,
+        ]);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to save grade']);
+    }
+    exit;
+}
+
+// Get the teacher's schedule from the database
+$schedule = [];
 
 // Define time slots
 $timeSlots = [
@@ -86,6 +192,8 @@ foreach ($days as $day) {
     }
 }
 
+// Read schedule from db.json
+$dbFile = BASE_PATH . '/database/db.json';
 if (file_exists($dbFile)) {
     $fileContent = file_get_contents($dbFile);
     if ($fileContent !== false) {
@@ -94,7 +202,7 @@ if (file_exists($dbFile)) {
             foreach ($data['stundu_saraksts'] as $class) {
                 if (isset($class['dienas'])) {
                     foreach ($class['dienas'] as $day) {
-                        $dayName = ucfirst($day['name']); // Convert to proper case (e.g., 'friday' to 'Friday')
+                        $dayName = ucfirst($day['name']); // Convert to proper case
 
                         if (isset($day['subjects'])) {
                             // First, collect all lessons for this day
@@ -125,77 +233,24 @@ if (file_exists($dbFile)) {
     }
 }
 
-view('teacher/curriculum', [
-    'title'     => 'My Curriculum',
-    'teacher'   => $teacher,
-    'subject'   => $subject,
-    'schedule'  => $schedule,
-    'days'      => $days,
-    'timeSlots' => $timeSlots,
-]);
-
-// Add this to your controller after getting the schedule
-$students = [];
-if (! empty($schedule)) {
-    // Get all classes that the teacher teaches
-    $teacherClasses = [];
-    foreach ($schedule as $day => $daySchedule) {
-        foreach ($daySchedule as $time => $lessons) {
-            foreach ($lessons as $lesson) {
-                if (! in_array($lesson['class'], $teacherClasses)) {
-                    $teacherClasses[] = $lesson['class'];
-                }
+// Get all classes that the teacher teaches
+$teacherClasses = [];
+foreach ($schedule as $day => $daySchedule) {
+    foreach ($daySchedule as $time => $lessons) {
+        foreach ($lessons as $lesson) {
+            if (! in_array($lesson['class'], $teacherClasses)) {
+                $teacherClasses[] = $lesson['class'];
             }
         }
     }
-
-    // Fetch students for each class
-    foreach ($teacherClasses as $className) {
-        $classStudents = Student::execute(
-            "SELECT students.*, CONCAT(users.first_name, ' ', users.last_name) as student_name,
-                    GROUP_CONCAT(grades.grade) as grades
-             FROM students
-             INNER JOIN users ON students.user_id = users.id
-             LEFT JOIN grades ON students.id = grades.student_id AND grades.subject_id = :subject_id
-             WHERE students.class = :class_name
-             GROUP BY students.id",
-            ['class_name' => $className, 'subject_id' => $subject->id]
-        )->all();
-
-        $students[$className] = $classStudents;
-    }
 }
 
-// Add to your view data
 view('teacher/curriculum', [
-    'title'     => 'My Curriculum',
-    'teacher'   => $teacher,
-    'subject'   => $subject,
-    'schedule'  => $schedule,
-    'days'      => $days,
-    'timeSlots' => $timeSlots,
-    'students'  => $students, // Add this
+    'title'          => 'My Curriculum',
+    'teacher'        => $teacher,
+    'subject'        => $subject,
+    'schedule'       => $schedule,
+    'days'           => $days,
+    'timeSlots'      => $timeSlots,
+    'teacherClasses' => $teacherClasses,
 ]);
-
-// In your routes or controller
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_grade') {
-    $studentId = $_POST['student_id'];
-    $subjectId = $_POST['subject_id'];
-    $grade     = $_POST['grade'];
-
-    try {
-        Grade::execute(
-            "INSERT INTO grades (student_id, subject_id, grade) VALUES (:student_id, :subject_id, :grade)",
-            [
-                'student_id' => $studentId,
-                'subject_id' => $subjectId,
-                'grade'      => $grade,
-            ]
-        );
-
-        echo json_encode(['success' => true, 'message' => 'Grade added successfully']);
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Error adding grade']);
-    }
-    exit;
-}

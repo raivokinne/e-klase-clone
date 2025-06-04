@@ -35,6 +35,9 @@ $router->post('/subjects', 'admin/subjects.php')->only('admin');
 
 // Curriculum routes
 $router->get('/curriculum', 'teacher/curriculum.php')->only('teacher');
+$router->post('/curriculum', 'teacher/curriculum.php')->only('teacher');
+$router->get('/teacher/curriculum', 'teacher/curriculum.php')->only('teacher');
+$router->post('/teacher/curriculum', 'teacher/curriculum.php')->only('teacher');
 
 // Teacher dashboard
 $router->get('/teacher', 'teacher/teacher.php')->only('teacher');
